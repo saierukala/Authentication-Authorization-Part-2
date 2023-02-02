@@ -1,70 +1,161 @@
-# Getting Started with Create React App
+## Authentication & Authorization | Part 2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Authentication Flow in React
+# Storing JWT Token
+# Handling Login Failure
+# Cookies
+# Cookies.set()
+# Cookies.get()
+# Cookies.remove()
+# Handling Route Redirections
+# Unauthenticated Scenario
+# Authenticated Scenario
+# React Router
+# withRouter
 
-## Available Scripts
+worked on header loginform and app.js
+------------------------------------------------------------------------
 
-In the project directory, you can run:
+// npm install js-cookie --save
+// npm install react-router-dom@5.2.0
 
-### `npm start`
+------------------------------------------------------------------------
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+ # JWT Token
+JSON Web Token is a standard used to create Access Tokens. These access tokens are also called JWT Tokens.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The client uses these access tokens on every subsequent request to communicate with the Server.
 
-### `npm test`
+## Storing JWT Token in State
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+When we store the JWT Token in the state,
 
-### `npm run build`
+On page refresh, the JWT token won't be available
+It is difficult to pass state information to every component
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Storage Mechanisms
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Client-Side Data Storage
+* Storing Data on the Client
+* Server-Side Data Storage
+* Storing Data on the Server using some kind of Database
+* Different types of Client-Side data storage mechanisms are:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Local Storage
+Cookies
+Session Storage
+IndexedDB, etc.
 
-### `npm run eject`
+# . Cookies
+A cookie is a piece of data that is stored on the user's computer by the web browser.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# A cookie is made up of:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Name & Value
+* Expires − The date the cookie will expire. If this is blank, the cookie will expire when the visitor quits the browser.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Domain − The domain name of your site.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Path − The path to the directory or web page that set the cookie. This may be blank if you want to retrieve the cookie from any directory or page.
 
-## Learn More
+* Secure − If this field contains the word "secure", then the cookie may only be retrieved with a secure server. If this field is blank, no such restriction exists, etc.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+##  Why Cookies?
+With cookies, we can set the expiry duration.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Examples:
 
-### Code Splitting
+Banking Applications - Cookies get expired in minutes
+Facebook - Cookies get expired in months or years
+------------------------------------------------------------------------
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Cookies 
 
-### Analyzing the Bundle Size
+* We can set an expiration for Cookies
+* Cookies can store up to 4KB of data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## vs Local Storage
 
-### Making a Progressive Web App
+* Local storage data never expires
+* Local Storage can store up to 5 to 10 MB of data
+------------------------------------------------------------------------
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+##  Third Party Package - js-cookie
+JavaScript can read, create, modify, and delete the cookies.
 
-### Advanced Configuration
+NPM contains a js-cookie, a third-party package to manipulate cookies easily.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Installation Command:
+npm install js-cookie --save
 
-### Deployment
+# js-cookie methods are:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* Cookies.set()- It is used to set the cookie
+* Cookies.get()- It is used to get the cookie
+* Cookies.remove()- It is used to remove the cookie
 
-### `npm run build` fails to minify
+# Cookies.set()
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Cookies.set('CookieName', 'CookieValue', {expires: DAYS});
+
+# Example:
+
+* Cookies.set('ACCESS_TOKEN', 'Us1L90PXl...', {expires: 1});
+------------------------------------------------------------------------
+
+# 2 Cookies.get()
+
+* It returns undefined if the cookie expires or does not exist.
+
+ Cookies.get('CookieName');
+
+ # Example:
+
+ * Cookies.get('ACCESS_TOKEN');
+ -----------------------------------------------------------------------
+
+ ## 4. Redirect Component
+
+ * The react-router-dom provides the Redirect component. It can be used whenever we want to redirect to another path.
+
+ # Syntax:
+
+ * <Redirect to="PATH" />
+
+ # Example:
+
+ * <Redirect to="/login" />
+ -----------------------------------------------------------------------
+
+ ## Redirect Component vs history Methods
+
+* Use the Redirect Component when you have to stop displaying UI and navigate to a route. Ex: Inside Class Component - render()
+
+* In all other cases, use history.push() or history.replace() syntax Ex: onSubmit, onClick event callback functions
+ 
+ -----------------------------------------------------------------------
+
+ ## . withRouter
+The history prop will be available for only components which are directly given for Route.
+
+To provide history prop to other components, we can wrap it with the withRouter function while exporting it.
+
+## Example:
+
+import { withRouter} from 'react-router-dom'
+...
+export default withRouter(ComponentName)
+------------------------------------------------------------------------
+
+## 6. E-Commerce Application
+Make an Authentication Request to Login API
+Handle Login API Response
+On Login Success
+On Login Failure
+Store the JWT Token
+------------------------------------------------------------------------
+
+## Publish
+
+# https://Sailoginout.ccbp.tech
+
